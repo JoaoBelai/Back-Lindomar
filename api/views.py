@@ -19,8 +19,45 @@ from .serializers import AutorSerializers, EditoraSerializers, LivroSerializers
 #     serializer_class = LivroSerializers
 
 #Faz a mesma coisa do de cima, mas em método é mais manual, não genérico
+@api_view(['GET'])
+def get_autores(request):
+    queryset = Autor.objects.all()
+    serializer = AutorSerializers(queryset, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_autor(request, pk):
+    queryset = Autor.objects.get(pk=pk)
+    serializer = AutorSerializers(queryset)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_editoras(request):
+    queryset = Editora.objects.all()
+    serializer = EditoraSerializers(queryset, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_editora(request, pk):
+    queryset = Editora.objects.get(pk=pk)
+    serializer = EditoraSerializers(queryset)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_livros(request):
+    queryset = Livro.objects.all()
+    serializer = LivroSerializers(queryset, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_livro(request, pk):
+    queryset = Livro.objects.get(pk=pk)
+    serializer = LivroSerializers(queryset)
+    return Response(serializer.data)
+
+
 @api_view(['GET', 'POST'])
-def listar_criar_autores(request):
+def post_autores(request):
     if request.method == 'GET':
         queryset = Autor.objects.all()
         serializer = AutorSerializers(queryset, many = True)
@@ -35,7 +72,7 @@ def listar_criar_autores(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['GET', 'POST'])
-def listar_criar_editoras(request):
+def post_editoras(request):
     if request.method == 'GET':
         queryset = Editora.objects.all()
         serializer = EditoraSerializers(queryset, many = True)
@@ -50,7 +87,7 @@ def listar_criar_editoras(request):
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
-def listar_criar_livros(request):
+def post_livros(request):
     if request.method == 'GET':
         queryset = Livro.objects.all()
         serializer = LivroSerializers(queryset, many = True)
@@ -63,6 +100,7 @@ def listar_criar_livros(request):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 
 class AutoresRetriveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Autor.objects.all()
