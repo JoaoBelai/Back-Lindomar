@@ -3,7 +3,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter
 from rest_framework import status
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Autor, Editora, Livro
 from .serializers import AutorSerializers, EditoraSerializers, LivroSerializers
 
@@ -27,9 +29,18 @@ from .serializers import AutorSerializers, EditoraSerializers, LivroSerializers
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_autores(request):
+    filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Autor.objects.all()
+
+    for backend in list(filter_backend):
+        queryset = backend().filter_queryset(request, queryset, view=get_autores)
+
     serializer = AutorSerializers(queryset, many = True)
     return Response(serializer.data)
+
+filter_backend = [DjangoFilterBackend, SearchFilter]
+get_autores.filterset_fields = ['nacionalidade', 'data_nasc']
+get_autores.search_fields = ['nome', 'sobrenome']
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
