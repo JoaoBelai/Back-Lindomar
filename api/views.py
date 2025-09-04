@@ -38,7 +38,6 @@ def get_autores(request):
     serializer = AutorSerializers(queryset, many = True)
     return Response(serializer.data)
 
-filter_backend = [DjangoFilterBackend, SearchFilter]
 get_autores.filterset_fields = ['nacionalidade', 'data_nasc']
 get_autores.search_fields = ['nome', 'sobrenome']
 
@@ -52,9 +51,17 @@ def get_autor(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_editoras(request):
+    filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Editora.objects.all()
+
+    for backend in list(filter_backend):
+        queryset = backend().filter_queryset(request, queryset, view=get_editoras)
+
     serializer = EditoraSerializers(queryset, many = True)
     return Response(serializer.data)
+
+get_editoras.filterset_fields = ['editora', 'cnpj', 'endereco']
+get_editoras.search_fields = ['editora', 'email', 'telefone']
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -66,9 +73,17 @@ def get_editora(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_livros(request):
+    filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Livro.objects.all()
+
+    for backend in list(filter_backend):
+        queryset = backend().filter_queryset(request, queryset, view=get_livros)
+
     serializer = LivroSerializers(queryset, many = True)
     return Response(serializer.data)
+
+get_livros.filterset_fields = ['titulo', 'subtitulo', 'autor', 'descricao', 'ano_publicacao', 'paginas', 'preco', 'disponivel']
+get_livros.search_fields = ['titulo', 'subtitulo', 'autor', 'ano_publicacao']
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
