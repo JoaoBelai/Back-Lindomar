@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.filters import SearchFilter
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
@@ -27,7 +27,7 @@ from .serializers import AutorSerializers, EditoraSerializers, LivroSerializers
 
 #Faz a mesma coisa do de cima, mas em método é mais manual, não genérico
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_autores(request):
     filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Autor.objects.all()
