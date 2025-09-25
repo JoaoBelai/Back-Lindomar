@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Front-Lindomar": {
+    "frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -30,27 +30,17 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
               "fileReplacements": [
                 {
-                  "replace": "./src/app/environments/environments.ts",
-                  "with": "./src/app/environments/environments.ts"
+                  "replace": "src/enviroments/enviroment.ts",
+                  "with": "src/enviroments/enviromentProd.ts"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -59,10 +49,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Front-Lindomar:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "Front-Lindomar:build:development"
+              "buildTarget": "frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -96,3 +86,5 @@
     "analytics": false
   }
 }
+ 
+ 
