@@ -49,7 +49,7 @@ def get_autor(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_editoras(request):
     filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Editora.objects.all()
