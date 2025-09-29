@@ -71,7 +71,7 @@ def get_editora(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_livros(request):
     filter_backend = [DjangoFilterBackend, SearchFilter]
     queryset = Livro.objects.all()
