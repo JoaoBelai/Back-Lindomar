@@ -16,6 +16,8 @@ import { RouterLink } from "@angular/router";
         <a routerLink="autores">Ver autores</a>
         <a routerLink="editoras">Ver editoras</a>
         <a routerLink="livros">Ver livros</a>
+        <a routerLink="livros">Ver livros</a>
+        <a routerLink="pesquisas">Pesquisar Livro</a>
 
       </nav>
     </section>
