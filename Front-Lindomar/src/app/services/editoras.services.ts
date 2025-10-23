@@ -11,8 +11,11 @@ export class EditorasServices {
   private http = inject(HttpClient)
   private base = environment.apiBase
 
-  listar(): Observable<Editora[]>{
-    const url = `${this.base}api/editoras`
+  listar(filtro: string = ''): Observable<Editora[]>{
+    let url = `${this.base}api/editoras`
+    if(filtro){
+      url+= `/?editora=${encodeURIComponent(filtro)}`
+    }
     return this.http.get<Editora[]>(url)
   }
 }

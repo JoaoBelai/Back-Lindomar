@@ -11,8 +11,11 @@ export class AutoresServices {
   private http = inject(HttpClient)
   private base = environment.apiBase
 
-  listar(): Observable<Autor[]>{
-    const url = `${this.base}api/autores`
+  listar(filtro: string = ''): Observable<Autor[]>{
+    let url = `${this.base}api/autores`
+    if(filtro){
+      url+= `/?nome=${encodeURIComponent(filtro)}`
+    }
     return this.http.get<Autor[]>(url)
   }
 }

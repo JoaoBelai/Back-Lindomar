@@ -1,5 +1,15 @@
 <section style="max-width: 900px; margin: 2rem auto; padding: 0 1rem">
   <h1>Livros</h1>
+  <label for="pesquisa-livro">Pesquisa:</label>
+
+  <input  style="border: solid 1px #000;" 
+    type="text" 
+    [(ngModel)]="filtro"
+    (input)="buscar()"
+    name="pesquisa-livro" 
+    id="pesquisa-livro" 
+    placeholder="Pesquise o Livro"
+  >
 
   @if (carregando()) {
   <p>Carregando…</p>
@@ -7,36 +17,70 @@
   <p style="color: #c62828">{{ erro() }}</p>
   } @else {
   <ul style="padding-left: 1.25rem">
-    @for (a of livros(); track a.id) {
-    <li style="margin: 0.25rem 0">
-      <strong>{{ a.titulo }}</strong>
-      @if (a.subtitulo) { — <em style="color: #666">{{ a.subtitulo }}</em> } @if (a.autor) { •
-      {{ a.autor }} } @if (a.editora) {
-      <div style="color: #555">{{ a.editora }}</div>
-      } @if (a.isbn) {
-      <div style="color: #555">{{ a.isbn }}</div>
-      } @if (a.descricao) {
-      <div style="color: #555">{{ a.descricao }}</div>
-      } @if (a.idioma) {
-      <div style="color: #555">{{ a.idioma }}</div>
-      } @if (a.ano_publicacao) {
-      <div style="color: #555">{{ a.ano_publicacao }}</div>
-      } @if (a.paginas) {
-      <div style="color: #555">{{ a.paginas }}</div>
-      } @if (a.preco) {
-      <div style="color: #555">{{ a.preco }}</div>
-      } @if (a.estoque) {
-      <div style="color: #555">{{ a.estoque }}</div>
-      } @if (a.desconto) {
-      <div style="color: #555">{{ a.desconto }}</div>
-      } @if (a.disponivel) {
-      <div style="color: #555">{{ a.disponivel }}</div>
-      } @if (a.dimensoes) {
-      <div style="color: #555">{{ a.dimensoes }}</div>
-      } @if (a.peso) {
-      <div style="color: #555">{{ a.peso }}</div>
+    @if(filtro==""){
+      @for (a of livros(); track a.id) {
+        <li style="margin: 0.25rem 0">
+          <strong>{{ a.titulo }}</strong>
+          @if (a.subtitulo) { — <em style="color: #666">{{ a.subtitulo }}</em> } @if (a.autor) { •
+          {{ a.autor }} } @if (a.editora) {
+          <div style="color: #555">{{ a.editora }}</div>
+          } @if (a.isbn) {
+          <div style="color: #555">{{ a.isbn }}</div>
+          } @if (a.descricao) {
+          <div style="color: #555">{{ a.descricao }}</div>
+          } @if (a.idioma) {
+          <div style="color: #555">{{ a.idioma }}</div>
+          } @if (a.ano_publicacao) {
+          <div style="color: #555">{{ a.ano_publicacao }}</div>
+          } @if (a.paginas) {
+          <div style="color: #555">{{ a.paginas }}</div>
+          } @if (a.preco) {
+          <div style="color: #555">{{ a.preco }}</div>
+          } @if (a.estoque) {
+          <div style="color: #555">{{ a.estoque }}</div>
+          } @if (a.desconto) {
+          <div style="color: #555">{{ a.desconto }}</div>
+          } @if (a.disponivel) {
+          <div style="color: #555">{{ a.disponivel }}</div>
+          } @if (a.dimensoes) {
+          <div style="color: #555">{{ a.dimensoes }}</div>
+          } @if (a.peso) {
+          <div style="color: #555">{{ a.peso }}</div>
+          }
+        </li>
       }
-    </li>
+    }@else{
+      @for (a of sugestoes(); track a.id) {
+        <li style="margin: 0.25rem 0">
+          <strong>{{ a.titulo }}</strong>
+          @if (a.subtitulo) { — <em style="color: #666">{{ a.subtitulo }}</em> } @if (a.autor) { •
+          {{ a.autor }} } @if (a.editora) {
+          <div style="color: #555">{{ a.editora }}</div>
+          } @if (a.isbn) {
+          <div style="color: #555">{{ a.isbn }}</div>
+          } @if (a.descricao) {
+          <div style="color: #555">{{ a.descricao }}</div>
+          } @if (a.idioma) {
+          <div style="color: #555">{{ a.idioma }}</div>
+          } @if (a.ano_publicacao) {
+          <div style="color: #555">{{ a.ano_publicacao }}</div>
+          } @if (a.paginas) {
+          <div style="color: #555">{{ a.paginas }}</div>
+          } @if (a.preco) {
+          <div style="color: #555">{{ a.preco }}</div>
+          } @if (a.estoque) {
+          <div style="color: #555">{{ a.estoque }}</div>
+          } @if (a.desconto) {
+          <div style="color: #555">{{ a.desconto }}</div>
+          } @if (a.disponivel) {
+          <div style="color: #555">{{ a.disponivel }}</div>
+          } @if (a.dimensoes) {
+          <div style="color: #555">{{ a.dimensoes }}</div>
+          } @if (a.peso) {
+          <div style="color: #555">{{ a.peso }}</div>
+          }
+        </li>
+      }
     }
   </ul>
   }

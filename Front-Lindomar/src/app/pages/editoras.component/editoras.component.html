@@ -1,5 +1,16 @@
 <section style="max-width: 900px; margin: 2rem auto; padding: 0 1rem">
   <h1>Editoras</h1>
+    <label for="pesquisa-editora">Pesquisa:</label>
+
+    <input  style="border: solid 1px #000;" 
+      type="text" 
+      [(ngModel)]="filtro"
+      (input)="buscar()"
+      name="pesquisa-editora" 
+      id="pesquisa-editora" 
+      placeholder="Pesquise a Editora"
+    >
+
 
   @if (carregando()) {
   <p>Carregando…</p>
@@ -7,19 +18,35 @@
   <p style="color: #c62828">{{ erro() }}</p>
   } @else {
   <ul style="padding-left: 1.25rem">
-    @for (a of editoras(); track a.id) {
-    <li style="margin: 0.25rem 0">
-      <strong>{{ a.editora }}</strong>
-      @if (a.cnpj) { — <em style="color: #666">{{ a.cnpj }}</em> } @if (a.endereco) { •
-      {{ a.endereco }} } @if (a.telefone) {
-      <div style="color: #555">{{ a.telefone }}</div>
-      } @if (a.email) {
-      <div style="color: #555">{{ a.email }}</div>
-      } @if (a.site) {
-      <div style="color: #555">{{ a.site }}</div>
+    @if(filtro==""){
+      @for (a of editoras(); track a.id) {
+        <li style="margin: 0.25rem 0">
+          <strong>{{ a.editora }}</strong>
+          @if (a.cnpj) { — <em style="color: #666">{{ a.cnpj }}</em> } @if (a.endereco) { •
+          {{ a.endereco }} } @if (a.telefone) {
+          <div style="color: #555">{{ a.telefone }}</div>
+          } @if (a.email) {
+          <div style="color: #555">{{ a.email }}</div>
+          } @if (a.site) {
+          <div style="color: #555">{{ a.site }}</div>
+          }
+        </li>
       }
-    </li>
-    }
+    }@else {
+        @for (a of sugestoes(); track a.id) {
+          <li style="margin: 0.25rem 0">
+            <strong>{{ a.editora }}</strong>
+            @if (a.cnpj) { — <em style="color: #666">{{ a.cnpj }}</em> } @if (a.endereco) { •
+              {{ a.endereco }} } @if (a.telefone) {
+                <div style="color: #555">{{ a.telefone }}</div>
+              } @if (a.email) {
+                <div style="color: #555">{{ a.email }}</div>
+              } @if (a.site) {
+                <div style="color: #555">{{ a.site }}</div>
+              }
+          </li>
+        }
+      }
   </ul>
   }
 

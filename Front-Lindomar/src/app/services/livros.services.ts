@@ -11,8 +11,11 @@ export class LivrosServices {
   private http = inject(HttpClient)
   private base = environment.apiBase
 
-  listar(): Observable<Livro[]>{
-    const url = `${this.base}api/livros`
+  listar(filtro: string = ''): Observable<Livro[]>{
+    let url = `${this.base}api/livros`
+    if(filtro){
+      url+= `/?titulo=${encodeURIComponent(filtro)}`
+    }
     return this.http.get<Livro[]>(url)
   }
 }

@@ -1,5 +1,15 @@
 <section style="max-width: 900px; margin: 2rem auto; padding: 0 1rem">
-  <h1>Autores</h1>
+  <h1>Autores</h1> 
+  <label for="pesquisa-autores">Pesquisa:</label>
+
+  <input  style="border: solid 1px #000;" 
+    type="text" 
+    [(ngModel)]="filtro"
+    (input)="buscar()"
+    name="pesquisa-autores" 
+    id="pesquisa-autores" 
+    placeholder="Pesquise o Autor"
+  >
 
   @if (carregando()) {
   <p>Carregando…</p>
@@ -7,15 +17,28 @@
   <p style="color: #c62828">{{ erro() }}</p>
   } @else {
   <ul style="padding-left: 1.25rem">
-    @for (a of autores(); track a.id) {
-    <li style="margin: 0.25rem 0">
-      <strong>{{ a.nome }} {{ a.sobrenome }}</strong>
-      @if (a.nacionalidade) { — <em style="color: #666">{{ a.nacionalidade }}</em> } @if
-      (a.data_nascimento) { • {{ a.data_nascimento }} } @if (a.biografia) {
-      <div style="color: #555">{{ a.biografia }}</div>
+    @if(filtro==""){
+      @for (a of autores(); track a.id) {
+        <li style="margin: 0.25rem 0">
+          <strong>{{ a.nome }} {{ a.sobrenome }}</strong>
+          @if (a.nacionalidade) { — <em style="color: #666">{{ a.nacionalidade }}</em> } @if
+          (a.data_nascimento) { • {{ a.data_nascimento }} } @if (a.biografia) {
+          <div style="color: #555">{{ a.biografia }}</div>
+          }
+        </li>
       }
-    </li>
+    }@else{
+      @for (a of sugestoes(); track a.id) {
+        <li style="margin: 0.25rem 0">
+          <strong>{{ a.nome }} {{ a.sobrenome }}</strong>
+          @if (a.nacionalidade) { — <em style="color: #666">{{ a.nacionalidade }}</em> } @if
+          (a.data_nascimento) { • {{ a.data_nascimento }} } @if (a.biografia) {
+          <div style="color: #555">{{ a.biografia }}</div>
+          }
+        </li>
+      }
     }
+    
   </ul>
   }
 
