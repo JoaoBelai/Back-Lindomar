@@ -38,7 +38,7 @@ def get_autores(request):
     serializer = AutorSerializers(queryset, many = True)
     return Response(serializer.data)
 
-get_autores.filterset_fields = ['nacionalidade', 'data_nasc']
+get_autores.filterset_fields = ['nome', 'nacionalidade', 'data_nasc']
 get_autores.search_fields = ['nome', 'sobrenome']
 
 @api_view(['GET'])
